@@ -6,7 +6,6 @@ Po zaimplementowaniu rozwiązania komendy `pass` powinny być usunięte.
 """
 
 from typing import List, Optional
-
 class Node:
     def __init__(self, val: int, left=None, right=None):
         self.val = val
@@ -16,10 +15,10 @@ class Node:
 
 def create_binary_tree(node_values: List[str]):
     if (
-        not node_values
-        or len(node_values) == 0
-        or node_values[0].strip() == ""
-        or node_values[0] == "null"
+            not node_values
+            or len(node_values) == 0
+            or node_values[0].strip() == ""
+            or node_values[0] == "null"
     ):
         return None
     root = Node(int(node_values[0]))
@@ -57,9 +56,22 @@ def get_right_subtree(root: Optional[Node]):
     return None
 
 
+def inorder( root, output):
+    if root is None:
+        return
+    inorder(root.left, output)
+    output.append(root.val)
+    inorder(root.right, output)
+
 def is_valid_BST(root: Optional[Node]) -> bool:
-    # TODO: Mając dany korzeń drzewa binarnego root sprawdź czy jest ono drzewem BST.
-    pass
+    output = []
+    inorder(root, output)
+    print(output)
+    for i in range(1, len(output)):
+        if output[i - 1] >= output[i]:
+            return False
+
+    return True
 
 
 # nie modyfikuj poniższego kodu

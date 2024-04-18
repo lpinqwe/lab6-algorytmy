@@ -1,5 +1,5 @@
 """
-Uzupełnij 2 funkcje poniżej oznaczone jako "TODO". 
+Uzupełnij 2 funkcje poniżej oznaczone jako "TODO".
 Nie modyfikuj kodu, który już istnieje.
 Można tworzyć własne funkcje pomocnicze.
 Po zaimplementowaniu rozwiązania komendy `pass` powinny być usunięte.
@@ -7,7 +7,33 @@ Po zaimplementowaniu rozwiązania komendy `pass` powinny być usunięte.
 
 from typing import List, Optional
 
-
+class Solution(object):
+    def req_count(self,root, integer):
+        if(root):
+            integer+=1
+            buf1=self.req_count(root.left,integer)
+            buf2=self.req_count(root.right,integer)
+            if(buf1>buf2):
+                integer=buf1
+            else:
+                integer=buf2
+        return integer
+    def get_height(self,root) :
+        buf=self.req_count(root,0)
+        return buf
+    def maxDepth(self, root):
+        return self.get_height(root)
+    def isBalanced(self, root):
+        if(not root):
+            return True
+        left=self.get_height(root.left)
+        right=self.get_height(root.right)
+        #print("a")
+        buf=abs(left-right)
+        #print(buf)
+        if(buf>1):
+            return False
+        return self.isBalanced(root.left) and  self.isBalanced(root.right)
 class Node:
     def __init__(self, val: int, left=None, right=None):
         self.val = val
@@ -47,14 +73,11 @@ def create_binary_tree(node_values: List[str]):
 
 
 def get_height(root: Optional[Node]) -> int:
-    # TODO: Mając dany korzeń drzewa binarnego root zwróć jego wysokość
-    pass
-
-
+    buf=Solution()
+    return buf.maxDepth(root)-1
 def is_balanced(root: Optional[Node]) -> bool:
-    # TODO: Mając dany korzeń drzewa binarnego root sprawdź czy to drzewo jest zbalansowane.
-    pass
-
+    b= Solution()
+    return b.isBalanced(root)
 # nie modyfikuj poniższego kodu
 if __name__ == "__main__":
     node_values = input().strip().split(" ")
